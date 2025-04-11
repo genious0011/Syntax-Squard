@@ -1,0 +1,104 @@
+/* login.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+form {
+    width: 100%;
+    max-width: 500px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+h1#sign {
+    text-align: center;
+    color: #333;
+}
+
+hr {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+input[type=text],
+input[type=password],
+input[type=test] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 16px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type=checkbox] {
+    margin-right: 10px;
+}
+
+.clearfix {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cancelbtn,
+.signupbtn {
+    padding: 14px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 48%;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.cancelbtn {
+    background-color: #f44336;
+    color: white;
+}
+
+.signupbtn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.cancelbtn:hover {
+    background-color: #e53935;
+}
+
+.signupbtn:hover {
+    background-color: #45a049;
+}
+
+p {
+    font-size: 14px;
+    color: #555;
+    margin: 10px 0 0;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+#sign{
+    color: #45a049;
+}

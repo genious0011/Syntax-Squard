@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration form</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <form id="form" action="action_page.php" style="border:1px solid #ccc">
+        <div class="container">
+          <h1 id="sign" style="color:red">Sign Up</h1>
+          <hr>
+          <label id="Full" for="Full Name"><b>Full Name</b></label>
+          <input type="test" placeholder="Enter Name" name="Full name" required>
+
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email" name="email" required>
+      
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="psw" required>
+      
+          <label for="psw-Confirm"><b>Confirm Password</b></label>
+          <input type="password" placeholder="Confirm Password" name="psw-Confirm" required>
+
+          <label for="Number"><b>Number</b></label>
+          <input type="text" placeholder="Enter Mobile Number" name="Number" required>
+      
+          <label>
+            <input type="checkbox" check="check" name="remember" style="margin-bottom:15px"> Remember me
+          </label>
+      
+          <button><a href="terms.html">By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a></button>
+          <div class="clearfix">
+            <button type="button" class="cancelbtn">Cancel</button>
+            <button type="submit" class="signupbtn"><a href="reci.html">Sign Up</a></button>
+          </div>
+        </div>
+      </form>
+</body>
+</html>

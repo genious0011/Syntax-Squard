@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredient Tracker</title>
+    <style>
+        body { font-family: sans-serif; }
+        table { border-collapse: collapse; width: 80%; margin: 20px auto; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        input[type="text"], input[type="number"], input[type="date"] { padding: 8px; margin-bottom: 10px; width: 200px; }
+        button { padding: 10px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+        .button-delete { background-color: #f44336; }
+        .button-delete:hover { background-color: #d32f2f; }
+        .message { color: green; text-align: center; margin: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Ingredient Tracker</h1>
+
+    <div>
+        <input type="text" id="name" placeholder="Ingredient Name" required>
+        <input type="number" id="quantity" placeholder="Quantity" min="1" required>
+        <input type="text" id="unit" placeholder="Unit" required>
+        <input type="date" id="expiry_date" required>
+        <button onclick="addIngredient()">Add Ingredient</button>
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <table id="ingredientTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Expiry Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+   
+</body>
+<script>
+    let ingredients = {}; // Store ingredients in JavaScript
+
+    function renderTable() {
+        const tableBody = document.querySelector("#ingredientTable tbody");
+        tableBody.innerHTML = ""; // Clear existing rows
+
+        for (const name in ingredients) {
+            const ingredient = ingredients[name];
+            const row = document.createElement("tr");
+            row.id = `row-${name}`; // Corrected ID assignment
+
+            row.innerHTML = `
+                <td>${name}</td>
+                <td id="quantity-${name}">${ingredient.quantity}</td>
+                <td id="unit-${name}">${ingredient.unit}</td>
+                <td id="expiry-${name}">${ingredient.expiry_date}</td>
+                <td>
+                    <button onclick="editIngredient('${name}')">Edit</button>
+                    <button class="button-delete" onclick="deleteIngredient('${name}')">Delete</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        }
+    }
+
+    function addIngredient() {
+        const name = document.getElementById("name").value.trim();
+        const quantity = parseFloat(document.getElementById("quantity").value);
+        const unit = document.getElementById("unit").value.trim();
+        const expiry_date = document.getElementById("expiry_date").value;
+
+        if (name && !isNaN(quantity) && quantity > 0 && unit && expiry_date) {
+            if (ingredients[name]) {
+                ingredients[name].quantity += quantity;
+            } else {
+                ingredients[name] = { quantity, unit, expiry_date };
+            }
+            renderTable();
+            showMessage("Ingredient added successfully!");
+            clearInputs();
+        } else {
+            alert("Please fill in all fields correctly.");
+        }
+    }
+
+    function editIngredient(name) {
+        const ingredient = ingredients[name];
+        const newQuantity = prompt("Enter new Quantity", ingredient.quantity);
+        const newUnit = prompt("Enter new Unit", ingredient.unit);
+        const newExpiry = prompt("Enter new Expiry Date (YYYY-MM-DD)", ingredient.expiry_date);
+
+        if (newQuantity && newUnit && newExpiry) {
+            ingredients[name].quantity = parseFloat(newQuantity);
+            ingredients[name].unit = newUnit;
+            ingredients[name].expiry_date = newExpiry;
+            renderTable();
+            showMessage("Ingredient updated successfully!");
+        }
+    }
+
+    function deleteIngredient(name) {
+        if (confirm("Are you sure you want to delete this ingredient?")) {
+            delete ingredients[name];
+            renderTable();
+            showMessage("Ingredient deleted successfully!");
+        }
+    }
+
+    function clearInputs() {
+        document.getElementById("name").value = "";
+        document.getElementById("quantity").value = "";
+        document.getElementById("unit").value = "";
+        document.getElementById("expiry_date").value = "";
+    }
+
+    function showMessage(msg) {
+        const messageDiv = document.getElementById("message");
+        messageDiv.textContent = msg;
+        setTimeout(() => {
+            messageDiv.textContent = "";
+        }, 3000);
+    }
+</script>
+</html>

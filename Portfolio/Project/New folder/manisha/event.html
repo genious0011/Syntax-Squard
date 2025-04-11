@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Spin Wheel</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .wheel {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 10px solid #333;
+            position: relative;
+            overflow: hidden;
+            transition: transform 4s cubic-bezier(0.33, 1, 0.68, 1);
+        }
+
+        .segment {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background-color: #ffcc00;
+            border: 1px solid #fff;
+            transform-origin: 100% 100%;
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+            transform: rotate(calc(var(--i) * 60deg));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #333;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lucky Spin Wheel</h1>
+        <div class="wheel" id="wheel">
+            <div class="segment" style="--i:0;">Prize 1</div>
+            <div class="segment" style="--i:1;">Prize 2</div>
+            <div class="segment" style="--i:2;">Prize 3</div>
+            <div class="segment" style="--i:3;">Prize 4</div>
+            <div class="segment" style="--i:4;">Prize 5</div>
+            <div class="segment" style="--i:5;">Prize 6</div>
+        </div>
+        <button id="spinButton">Spin the Wheel!</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const spinButton = document.getElementById('spinButton');
+            const wheel = document.getElementById('wheel');
+            const resultDisplay = document.getElementById('result');
+
+            if (!spinButton || !wheel || !resultDisplay) {
+                console.error("Required elements not found.");
+                return;
+            }
+
+            spinButton.addEventListener('click', function() {
+                const randomDegree = Math.floor(Math.random() * 360 + 3600);
+                wheel.style.transition = 'transform 4s cubic-bezier(0.33, 1, 0.68, 1)';
+                wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+                setTimeout(() => {
+                    wheel.style.transition = 'none'; // Reset transition for next spin
+                    const actualDegree = randomDegree % 360;
+                    const segmentIndex = Math.floor(actualDegree / 60);
+                    const prizes = ["Prize 1", "Prize 2", "Prize 3", "Prize 4", "Prize 5", "Prize 6"];
+                    resultDisplay.innerText = `You won: ${prizes[segmentIndex]}`;
+                }, 4000);
+            });
+        });
+    </script>
+</body>
+</html>
